@@ -1,44 +1,56 @@
+class MathSeries:
+    # Constructor to initialize the object with a number 'n'
+    def __init__(self, n):
+        self.n = n  # Store the number inside the object
 
-def calculate_tax(gross_pay):
+    # Recursive factorial function
+    def factorial_recursive(self, n):
+        # If n is negative, factorial is not possible
+        if n < 0:
+            raise ValueError("Factorial is not defined for negative numbers.")
 
-    if gross_pay <= 15600:
-        tax = gross_pay * 10.5 / 100 
-        # 10.5% tax for 0-15600
-    elif gross_pay <= 53500:
-        tax = gross_pay * 17.5 / 100  
-        # 17.5% tax for 15601-53500
-    elif gross_pay <= 78100:
-        tax = gross_pay * 30 / 100    
-        # 30% tax for 53501-78100
-    elif gross_pay <= 180000:
-        tax = gross_pay * 33 / 100  
-        # 33% tax for 78101-180000
-    else:
-        tax = gross_pay * 39 / 100   
+        # factorial of 0 or 1 is 1
+        if n in (0, 1):
+            return 1
 
-    return tax  
+        # Recursive call
+        return n * self.factorial_recursive(n - 1)
+
+    # Recursive Fibonacci function
+    def fibonacci_recursive(self, n):
+        # Negative Fibonacci values are not defined
+        if n < 0:
+            raise ValueError("Fibonacci is not defined for negative numbers.")
+
+        # Base conditions
+        if n == 0:
+            return 0
+        if n == 1:
+            return 1
+
+        # sum of previous two Fibonacci numbers
+        return self.fibonacci_recursive(n - 1) + self.fibonacci_recursive(n - 2)
+
+    # Function to print the full Fibonacci series up to n
+    def print_fibonacci_series(self):
+        series = []  # Empty list to store Fibonacci numbers
+
+        # Loop from 0 to n and generate Fibonacci numbers
+        for i in range(self.n + 1):
+            series.append(self.fibonacci_recursive(i))
+
+        return series
 
 
-def main():
-
-    #main function to get user input, calculate gross pay, tax and net pay and print results.
-
-    # Get user input
-    hours_worked=float(input("Enter the hours worked in a week:"))
-    hourly_rate=float(input("Enter the hourly rate you get:"))
-
-    #calculate gross_pay
-    gross_pay= hours_worked* hourly_rate
-
-    #calculate tax and net pay
-    tax = calculate_tax(gross_pay)
-    net_pay = gross_pay - tax
-
-    # Print results
-    print(f"Gross pay:{gross_pay}")
-    print(f"Tax:{tax}")
-    print(f"Net Pay:{net_pay}")
-     
-    input("\nPress Enter to exit...")   
 if __name__ == "__main__":
-    main()
+    # Input number
+    n = 5
+
+    # Create an object of MathSeries class
+    math_obj = MathSeries(n)
+
+    # Print factorial using the object
+    print("Factorial (recursive):", math_obj.factorial_recursive(n))
+
+    # Print the full Fibonacci series using the object
+    print("Fibonacci Series (recursive):", math_obj.print_fibonacci_series())
